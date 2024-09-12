@@ -8,7 +8,7 @@ import Generator from '@pages/getting-started/generator/Generator'
 import BaseEntity from '@pages/classes/base-entity/base-entity'
 import EntityList from '@pages/classes/entity-list/entity-list'
 import Repository from '@pages/classes/repository/repository'
-import EntityStateControlInterceptorLinfu from '@pages/classes/entity-interceptor/entity-interceptor'
+import EntityStateControlInterceptor from '@pages/classes/entity-interceptor/entity-interceptor'
 import QueryProviderInterface from '@pages/classes/queryprovider-interface/queryprovider-interface'
 import ListItemOutput from '@pages/classes/listitem-output/listitem-output'
 import BaseUseCase from '@pages/classes/entity-interceptor/entity-interceptor'
@@ -69,9 +69,9 @@ const domainLayerClassesRoutes = [
         component: (<Repository/>)
     },
     {
-        title: 'EntityStateControlInterceptorLinfu',
+        title: 'EntityStateControlInterceptor',
         path: routePaths.CLASSES_ENTITY_STATE_INTERCEPTOR,
-        component: (<EntityStateControlInterceptorLinfu/>)
+        component: (<EntityStateControlInterceptor/>)
     }
 ];
 

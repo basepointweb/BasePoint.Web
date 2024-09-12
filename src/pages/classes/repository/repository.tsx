@@ -88,7 +88,7 @@ const Repository = () => {
   const fetchSampleContents = async () => {
     try {
 
-      setInterceptoPreviewContent(`public class EntityStateControlInterceptorLinfu : IEntityStateObserver, IEntityObserver, IInvokeWrapper
+      setInterceptoPreviewContent(`public class EntityStateControlInterceptor : IEntityStateObserver, IEntityObserver, IInvokeWrapper
         {
           public void AfterInvoke(InvocationInfo info, object returnValue)
           { ... }
@@ -99,9 +99,9 @@ const Repository = () => {
           public object DoInvoke(InvocationInfo info)
           { ... }
           
-          public EntityStateControlInterceptorLinfu(
+          public EntityStateControlInterceptor(
             IBaseEntity entity,
-            EntityStateControlInterceptorLinfu parentInterceptor) : this(entity)
+            EntityStateControlInterceptor parentInterceptor) : this(entity)
           { ... }
           
           public T CreateEntityWihStateControl<T>(T entity)
