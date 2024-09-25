@@ -11,9 +11,10 @@ import GitHubIcon from '@mui/icons-material/GitHub'
 import YouTubeIcon from '@mui/icons-material/YouTube'
 import { useRef, useState, useEffect } from 'react'
 import { csharp } from "@replit/codemirror-lang-csharp"
-import CodeMirror from '@uiw/react-codemirror'
+import CodeMirror, { color } from '@uiw/react-codemirror'
 import { EditorView } from '@codemirror/view'
 import { codeEditorTheme } from '@shared/configs/constants/themes'
+import TypingEffect from '@/components/TypingEffect/TypingEffect';
 
 const bull = (
   <Box
@@ -140,6 +141,13 @@ function Home() {
 
   const boxReferences = [entityRef, repositoryRef, usecaseRef, dapperCommandRef]
 
+  const normalSx = {color: 'black', position: 'relative', fontSize: '70px',
+    zIndex: 2}
+  const basePointSx = {
+    color: '#0096ff', position: 'relative',
+    fontSize: '70px',
+    zIndex: 2}
+
   const boxReferenceSamples = new Map([
      [entityRef.current,codeEntitySample],
      [repositoryRef.current, codeRepositorySample],
@@ -149,8 +157,8 @@ function Home() {
   const selectedFirstCodeSample = (): void => {
     if (entityRef.current != null) {
       boxReferences.forEach(boxReference => {
-        boxReference.current.style.backgroundColor = (boxReference.current === entityRef.current)? '#f0f7ff' : 'red'
-        boxReference.current.style.borderColor = 'red'
+        boxReference.current.style.backgroundColor = (boxReference.current === entityRef.current)? '#efffff' : 'white'
+        boxReference.current.style.borderColor = (boxReference.current === entityRef.current)? '#3b93ec' : 'white' 
       });
 
       setSelectedCodeSample(codeEntitySample)
@@ -161,8 +169,8 @@ function Home() {
     const clickedBox = event.currentTarget;
 
     boxReferences.forEach(boxReference => {
-      boxReference.current.style.backgroundColor = (boxReference.current === clickedBox)? '#f0f7ff' : 'red'
-      boxReference.current.style.borderColor = 'red'
+      boxReference.current.style.backgroundColor = (boxReference.current === clickedBox)? '#efffff' : 'white'
+      boxReference.current.style.borderColor = (boxReference.current === clickedBox)? '#3b93ec' : 'white' 
     });
 
     setSelectedCodeSample(boxReferenceSamples.get(clickedBox))
@@ -174,7 +182,7 @@ function Home() {
 
 return (
     <>
-      <Box sx={{backgroundColor: 'whiteSmoke', background: "linear-Gradient(to bottom right, red, yellow, blue)"}}>    
+      <Box sx={{backgroundColor: 'whiteSmoke'}}>    
         <Grid      
           container
           direction="row"    
@@ -195,43 +203,70 @@ return (
                   width: '100%',             
                   textAlign: 'center',
                   lineHeight: '100px',
-                  marginTop: '200px'
+                  marginTop: '60px'
                 }}
               >
-                <Box style={{ }}>
-                  <Typography variant="h2" sx={{color: 'white'}}>Framework Back-end</Typography>
-                  <Typography variant="h2" sx={{color: 'white'}}>para rápido desenvolvimento</Typography>
-                  <Typography paragraph>
-                    BasePoint Framework oferece ferramentas para criar aplicações robustas e modernas, permitindo que você foque no seu negócio.
-                  </Typography>   
-                  <Button
-                    variant="contained"
-                    endIcon={<KeyboardArrowRightIcon />}
-                    onClick={ () => {navigate('/getting-started')}}
+                <Box style={{}}>
+                <Box sx={{ marginBottom: '50px', background: ''}}>   
+                  <Typography variant="h4" align='left' sx={{ color: 'black' }}>BasePoint Framework</Typography>
+                  
+                  <Box
                     sx={{
-                      textTransform: 'none'
-                    }}>
-                    Getting Started
-                  </Button>
-
-                  <Button
-                    variant="contained"
-                    startIcon={<GitHubIcon />}
-                    onClick={() => {
-                      openInNewTab('https://github.com/eliassilvadev/best-practices/blob/main/Best.Practices.Core/Domain/Entities/BaseEntity.cs');
-                    }}
-                    sx={{
-                      fontSize: 16,
-                      fontWeight: 'bold',
-                      backgroundColor: '#373a43',
-                      textTransform: 'none',
-                      '&:hover': {
-                        backgroundColor: '#292e3a',
-                      },
+                      position: 'relative',
+                      display: 'flex',
+                      flexDirection: 'row',
+                      textAlign: 'left',
+                      alignItems: 'center',
+                      marginBottom: '50px',
                     }}
                   >
-                    Source Code
-                  </Button>                
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: 0,
+                        width: 'calc(100% - 40px)',
+                        height: '25px',
+                        background: 'linear-gradient(to right, #00c6ff, #0072ff)',
+                        zIndex: 1,
+                        transform: 'translateY(-50%)',
+                      }}
+                    />
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        right: 0,
+                        width: '30px',
+                        height: '25px',
+                        background: 'linear-gradient(to right, #00c6ff, #0072ff)',
+                        borderRadius: '0 18px 0px 0',
+                      }}
+                    />
+                    <TypingEffect
+                      prefixText="Desenvolva com"
+                      texts={['qualidade', 'velocidade', 'BasePoint']}
+                      textThemes={[normalSx, normalSx, normalSx]}
+                      prefixSx={{ color: 'green', position: 'relative', zIndex: 2, fontSize: '70px' }}
+                    />
+                  </Box>
+                  
+                  <Typography paragraph align='left' sx={{ fontSize: '27px' }}>
+                    Ferramentas para criar aplicações robustas e modernas, permitindo que você foque no seu negócio.
+                  </Typography>
+                  
+                  <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
+                    <Button
+                      variant="contained"
+                      endIcon={<KeyboardArrowRightIcon />}
+                      onClick={() => { navigate('/getting-started') }}
+                      sx={{
+                        textTransform: 'none',
+                      }}
+                    >
+                      Comece já
+                    </Button>
+                  </Box>
+                </Box>                   
 
                   <Box
                     sx={{
@@ -242,9 +277,8 @@ return (
                     }}
                     >
                       <Box sx={{ minWidth: 500, width: '49%'}}>   
-                        <Typography variant="h4" textAlign="left">Todas as <Box style={{ fontWeight: 'bold', display: 'inline', color: '#4eb67e' }}>classes</Box> que precisa</Typography>
-                        <Typography variant="h4" textAlign="left">estão prontas para uso</Typography>
-
+                        <Typography variant="h4" textAlign="left" sx={{marginBottom: '20px'}}>Todas as ferramentas para um <Box style={{ fontWeight: 'bold', display: 'inline', color: 'green' }}>back-end</Box> robusto</Typography>
+            
                         <Box
                            ref={entityRef}                            
                            onClick={handleClassSampleClick}
@@ -255,7 +289,7 @@ return (
                            padding: '16px',
                            borderRadius: '8px',
                            backgroundColor: 'theme.palette.background.paper',
-                           border: '1px solid #e0e0e0',
+                           border: '1px solid #3b93ec',
                            marginBottom: '10px',
                            boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
                            maxWidth: '400px', // ajuste conforme necessário
@@ -284,7 +318,7 @@ return (
                            padding: '16px',
                            borderRadius: '8px',
                            backgroundColor: 'theme.palette.background.paper',
-                           border: '1px solid #e0e0e0',
+                           border: '1px solid #3b93ec',
                            marginBottom: '10px',
                            boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
                            maxWidth: '400px', // ajuste conforme necessário
@@ -314,7 +348,7 @@ return (
                            padding: '16px',
                            borderRadius: '8px',
                            backgroundColor: 'theme.palette.background.paper',
-                           border: '1px solid #e0e0e0',
+                           border: '1px solid #3b93ec',
                            marginBottom: '10px',
                            boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
                            maxWidth: '400px', // ajuste conforme necessário
@@ -344,7 +378,7 @@ return (
                            padding: '16px',
                            borderRadius: '8px',
                            backgroundColor: 'theme.palette.background.paper',
-                           border: '1px solid #e0e0e0',
+                           border: '1px solid #3b93ec',
                            marginBottom: '10px',
                            boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
                            maxWidth: '400px', // ajuste conforme necessário

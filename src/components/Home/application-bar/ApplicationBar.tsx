@@ -41,7 +41,7 @@ function ResponsiveAppBar() {
   }
 
   return (
-    <AppBar position="fixed" >
+    <AppBar position="fixed" sx={{background: "linear-Gradient(to bottom left, #72ffff, #00d7ff, #0096ff)"}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -98,7 +98,11 @@ function ResponsiveAppBar() {
               <Button
                 key={page}
                 onClick={() => handleClickMenuItem(page)}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ my: 2, color: 'white', display: 'block', fontWeight: 'bold',
+                  '&:hover': {
+                     color: '#49a2e8'
+                    }
+                 }}
               >
                 {page}
               </Button>
