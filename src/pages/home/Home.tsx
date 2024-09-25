@@ -195,7 +195,7 @@ return (
                 display: 'flex',
                 justifyContent: 'space-between',
                 width: '100%',
-                padding: '8px',
+                padding: '8px'
               }}
             >
               <Box
@@ -293,9 +293,10 @@ return (
                            marginBottom: '10px',
                            boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
                            maxWidth: '400px', // ajuste conforme necessário
-                           transition: 'background-color 0.3s ease', // Transição suave para mudança de cor
+                           transition: 'background-color 0.3s ease', 
                            '&:hover': {
-                             backgroundColor: '#f0f7ff', // Cor estimada da imagem quando o mouse passa
+                             backgroundColor: '#ebf5ff !important',
+                             borderColor: '#3b93ec !important'                            
                            },
                         }}>
                         <YouTubeIcon sx={{ color: '#1976d2', marginRight: '8px' }} /> 
@@ -310,21 +311,23 @@ return (
                         </Box>                        
                         <Box
                            ref={repositoryRef} 
-                           onClick={handleClassSampleClick}
+                           onClick={handleClassSampleClick}                          
                            sx={{
                            cursor:'pointer',
                            display: 'flex',
                            alignItems: 'center',
                            padding: '16px',
                            borderRadius: '8px',
+                           width: '100%', 
                            backgroundColor: 'theme.palette.background.paper',
                            border: '1px solid #3b93ec',
                            marginBottom: '10px',
                            boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
                            maxWidth: '400px', // ajuste conforme necessário
-                           transition: 'background-color 0.3s ease', // Transição suave para mudança de cor
+                           transition: 'background-color 0.3s ease', 
                            '&:hover': {
-                             backgroundColor: '#f0f7ff', // Cor estimada da imagem quando o mouse passa
+                             backgroundColor: '#ebf5ff !important',
+                             borderColor: '#3b93ec !important'     
                            },
                         }}>
                         <YouTubeIcon sx={{ color: '#1976d2', marginRight: '8px' }} /> 
@@ -352,9 +355,10 @@ return (
                            marginBottom: '10px',
                            boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
                            maxWidth: '400px', // ajuste conforme necessário
-                           transition: 'background-color 0.3s ease', // Transição suave para mudança de cor
+                           transition: 'background-color 0.3s ease', 
                            '&:hover': {
-                             backgroundColor: '#f0f7ff', // Cor estimada da imagem quando o mouse passa
+                             backgroundColor: '#ebf5ff !important',
+                             borderColor: '#3b93ec !important'    
                            },
                         }}>
                         <YouTubeIcon sx={{ color: '#1976d2', marginRight: '8px' }} /> 
@@ -382,9 +386,10 @@ return (
                            marginBottom: '10px',
                            boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
                            maxWidth: '400px', // ajuste conforme necessário
-                           transition: 'background-color 0.3s ease', // Transição suave para mudança de cor
+                           transition: 'background-color 0.3s ease', 
                            '&:hover': {
-                             backgroundColor: '#f0f7ff', // Cor estimada da imagem quando o mouse passa
+                             backgroundColor: '#ebf5ff !important',
+                             borderColor: '#3b93ec !important'    
                            },
                         }}>
                         <YouTubeIcon sx={{ color: '#1976d2', marginRight: '8px' }} /> 
