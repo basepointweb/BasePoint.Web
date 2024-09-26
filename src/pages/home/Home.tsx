@@ -190,7 +190,7 @@ function Home() {
         sx={{
           minHeight: '100vh',
           width: '100%',
-          backgroundColor: 'whiteSmoke',
+          backgroundColor: 'white',
         }}
       >
         <Box sx={{ width: '100%' }}>
@@ -199,15 +199,18 @@ function Home() {
             direction="row"
             justifyContent="center"
           >
-            <Box sx={{            
+            <Box sx={{    
+              background: 'whitesmoke',
               width: '100%',
               display: 'flex',
               justifyContent: 'center',
-              alignItems: 'center'
+              alignItems: 'center',
+              borderBottom: '1px solid #e8eaee'
             }}>
               <Grid item xs={9}>
                 <Box sx={{ marginBottom: '50px', marginTop: '60px' }}>
-                  <Typography variant="h4" align='left' sx={{ color: 'black' }}>BasePoint Framework</Typography>
+                  <Typography variant="h4" align='left' sx={{ color: '#0072ff', fontWeight: 'bold' }}>BasePoint Framework</Typography>
+                  {/*#00c6ff,*/ }
                   <Box
                     sx={{
                       position: 'relative',
@@ -254,14 +257,15 @@ function Home() {
 
                   <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
                     <Button
-                      variant="contained"
-                      endIcon={<KeyboardArrowRightIcon />}
+                      variant="contained"                    
                       onClick={() => { navigate('/getting-started') }}
                       sx={{
-                        textTransform: 'none',
+                       
+                        height: 50,
+                        fontSize: 18
                       }}
                     >
-                      Comece já
+                      Impulsione seu desenvolvimento
                     </Button>
                   </Box>
                 </Box>
@@ -273,10 +277,11 @@ function Home() {
               width: '100%',
               display: 'flex',
               justifyContent: 'center',
-              alignItems: 'center'
+              alignItems: 'center',
+              borderBottom: '1px solid #e8eaee'
             }}>
               <Grid item xs={9}>
-                <Box sx={{ marginBottom: '50px' }}>
+                <Box sx={{ marginBottom: '50px' ,marginTop: '60px' }}>
                   <Box
                     sx={{
                       display: 'flex',
@@ -285,9 +290,9 @@ function Home() {
                       padding: '8px',
                     }}
                   >
-                    <Box sx={{ minWidth: 500, width: '49%' }}>
-                      <Typography variant="h4" textAlign="left" sx={{ marginBottom: '20px' }}>Todas as ferramentas para um <Box style={{ fontWeight: 'bold', display: 'inline', color: 'green' }}>back-end</Box> robusto</Typography>
-
+                    <Box sx={{ minWidth: 500, width: '49%'}}>
+                      <Typography variant="h4" textAlign="left" sx={{ marginBottom: '20px' }}>Diversas ferramentas para um <Box style={{ fontWeight: 'bold', display: 'inline', color: 'green' }}>back-end</Box> robusto</Typography>
+                      
                       <Box
                         ref={entityRef}
                         onClick={handleClassSampleClick}
@@ -311,10 +316,10 @@ function Home() {
                         <YouTubeIcon sx={{ color: '#1976d2', marginRight: '8px' }} />
                         <Box>
                           <Typography variant="subtitle1" align='left' sx={{ fontWeight: 'bold' }}>
-                            Entidade
+                            Diversas classes prontas para uso
                           </Typography>
                           <Typography variant="subtitle2">
-                            Componente central do DDD
+                            Implemente com DDD e Arquitetura Limpa
                           </Typography>
                         </Box>
                       </Box>
@@ -342,10 +347,10 @@ function Home() {
                         <YouTubeIcon sx={{ color: '#1976d2', marginRight: '8px' }} />
                         <Box>
                           <Typography variant="subtitle1" align='left' sx={{ fontWeight: 'bold' }}>
-                            Repositório
+                            Liberdade para escolher a sua infra
                           </Typography>
                           <Typography variant="subtitle2">
-                            Persistência com gerência de estado
+                            Implemente na tecnologia de sua escolha
                           </Typography>
                         </Box>
                       </Box>
@@ -373,10 +378,10 @@ function Home() {
                         <YouTubeIcon sx={{ color: '#1976d2', marginRight: '8px' }} />
                         <Box>
                           <Typography variant="subtitle1" align='left' sx={{ fontWeight: 'bold' }}>
-                            DapperCommand
+                            Templates e geração de boilerplate 
                           </Typography>
                           <Typography variant="subtitle2">
-                            Persistência sem queries de insert update e delete
+                            Gera toda a estrutura e foqueno mais importante
                           </Typography>
                         </Box>
                       </Box>
@@ -434,14 +439,16 @@ function Home() {
               </Grid>
             </Box>
 
-            <Box sx={{         
+            <Box sx={{
+              background: 'whitesmoke',         
               width: '100%',
               display: 'flex',
               justifyContent: 'center',
-              alignItems: 'center'
+              alignItems: 'center',
+              borderBottom: '1px solid #e8eaee'
             }}>
               <Grid item xs={9}>
-                <Box sx={{ marginBottom: '50px' }}>
+                <Box sx={{ marginBottom: '50px', marginTop: '60px' }}>
                 <Typography variant="h4">Framework Open source</Typography>
                   <Typography paragraph align='left'>
                     Conte com uma extensa biblioteca de classes com funcionalidades úteis para sua dia-dia de desenvolvimento
