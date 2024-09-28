@@ -7,14 +7,37 @@ import { useNavigate } from 'react-router-dom'
 import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
-import GitHubIcon from '@mui/icons-material/GitHub'
 import YouTubeIcon from '@mui/icons-material/YouTube'
 import { useRef, useState, useEffect } from 'react'
 import { csharp } from "@replit/codemirror-lang-csharp"
 import CodeMirror, { color } from '@uiw/react-codemirror'
 import { EditorView } from '@codemirror/view'
 import { codeEditorTheme } from '@shared/configs/constants/themes'
-import TypingEffect from '@/components/TypingEffect/TypingEffect';
+import TypingEffect from '@/components/TypingEffect/TypingEffect'
+import Carousel from 'react-multi-carousel'
+import 'react-multi-carousel/lib/styles.css'
+import projectTemplatesImg from '@assets/images/projectTemplates.png'
+import templateSolutionCreatedImg from '@assets/images/templateSolutionCreated.png'
+import projectTemplatesSwagger from '@assets/images/projectTemplatesSwagger.png'
+
+
+const responsive = {
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 1,
+    partialVisibilityGutter: 0,
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 1,
+    partialVisibilityGutter: 0,
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
+    partialVisibilityGutter: 0,
+  },
+};
 
 const bull = (
   <Box
@@ -29,6 +52,28 @@ const openInNewTab = (url: string): void => {
   const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
   if (newWindow) newWindow.opener = null
 }
+
+const codeDapperSample = `public class ShoppingCartCommand : DapperCommand<ShoppingCart>
+{
+	public ShoppingCartCommand(MySqlConnection connection, ShoppingCart affectedEntity)
+		: base(connection, affectedEntity)
+	{
+		AddTypeMapping(nameof(ShoppingCart), DapperShoppingCartTableDefinition.TableDefinition)
+			.WithParentEntity(nameof(ShoppingCart.OwnerUser), affectedEntity.OwnerUser);
+
+		AddTypeMapping(nameof(FeatureFlag), DapperShoppingCartItemTableDefinition.TableDefinition)
+			.WithParentEntity(nameof(ShoppingCart), affectedEntity);
+	}
+
+	public override IList<CommandDefinition> CreateCommandDefinitions(ShoppingCart entity)
+	{
+		CreateCommandDefinitionByState(entity);
+
+		CreateCommandDefinitionByState(entity.Items.AllItems);
+
+		return CommandDefinitions;
+	}
+}`
 
 const codeEntitySample = `public class Person : BaseEntity
 {
@@ -134,12 +179,12 @@ const codeUseCaseSample = `public class SampleCommandUseCase
 function Home() {
   const navigate = useNavigate();
   const entityRef = useRef(null);
-  const repositoryRef = useRef(null);
+  const infraStructureImplementationRef = useRef(null);
   const usecaseRef = useRef(null);
-  const dapperCommandRef = useRef(null);
-  const [selectedCodeSample, setSelectedCodeSample] = useState('');
+  const boilerplateRef = useRef(null);
+  const [selectedComponent, setSelectedComponent] = useState('');
 
-  const boxReferences = [entityRef, repositoryRef, usecaseRef, dapperCommandRef]
+  const boxReferences = [entityRef, infraStructureImplementationRef, usecaseRef, boilerplateRef]
 
   const normalSx = {
     color: 'green', position: 'relative', fontSize: '70px',
@@ -152,11 +197,11 @@ function Home() {
     zIndex: 2
   }
 
-  const boxReferenceSamples = new Map([
-    [entityRef.current, codeEntitySample],
-    [repositoryRef.current, codeRepositorySample],
-    [usecaseRef.current, codeUseCaseSample],
-    [dapperCommandRef.current, codeDapperCommandSample]])
+  const codeSamples = [
+    codeEntitySample,
+    codeRepositorySample,
+    codeUseCaseSample,
+    codeDapperCommandSample]
 
   const selectedFirstCodeSample = (): void => {
     if (entityRef.current != null) {
@@ -165,7 +210,7 @@ function Home() {
         boxReference.current.style.borderColor = (boxReference.current === entityRef.current) ? '#3b93ec' : 'white'
       });
 
-      setSelectedCodeSample(codeEntitySample)
+      setSelectedComponent(entityRef.current);
     }
   }
 
@@ -177,7 +222,7 @@ function Home() {
       boxReference.current.style.borderColor = (boxReference.current === clickedBox) ? '#3b93ec' : 'white'
     });
 
-    setSelectedCodeSample(boxReferenceSamples.get(clickedBox))
+    setSelectedComponent(clickedBox);
   }
 
   useEffect(() => {
@@ -199,7 +244,7 @@ function Home() {
             direction="row"
             justifyContent="center"
           >
-            <Box sx={{    
+            <Box sx={{
               background: 'whitesmoke',
               width: '100%',
               display: 'flex',
@@ -210,7 +255,7 @@ function Home() {
               <Grid item xs={9}>
                 <Box sx={{ marginBottom: '50px', marginTop: '60px' }}>
                   <Typography variant="h4" align='left' sx={{ color: '#0072ff', fontWeight: 'bold' }}>BasePoint Framework</Typography>
-                  {/*#00c6ff,*/ }
+                  {/*#00c6ff,*/}
                   <Box
                     sx={{
                       position: 'relative',
@@ -257,10 +302,10 @@ function Home() {
 
                   <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
                     <Button
-                      variant="contained"                    
+                      variant="contained"
                       onClick={() => { navigate('/getting-started') }}
                       sx={{
-                       
+
                         height: 50,
                         fontSize: 18
                       }}
@@ -281,7 +326,7 @@ function Home() {
               borderBottom: '1px solid #e8eaee'
             }}>
               <Grid item xs={9}>
-                <Box sx={{ marginBottom: '50px' ,marginTop: '60px' }}>
+                <Box sx={{ marginBottom: '50px', marginTop: '60px' }}>
                   <Box
                     sx={{
                       display: 'flex',
@@ -290,9 +335,9 @@ function Home() {
                       padding: '8px',
                     }}
                   >
-                    <Box sx={{ minWidth: 500, width: '49%'}}>
+                    <Box sx={{ minWidth: 500, width: '49%' }}>
                       <Typography variant="h4" textAlign="left" sx={{ marginBottom: '20px' }}>Diversas ferramentas para um <Box style={{ fontWeight: 'bold', display: 'inline', color: 'green' }}>back-end</Box> robusto</Typography>
-                      
+
                       <Box
                         ref={entityRef}
                         onClick={handleClassSampleClick}
@@ -310,7 +355,8 @@ function Home() {
                           transition: 'background-color 0.3s ease',
                           '&:hover': {
                             backgroundColor: '#ebf5ff !important',
-                            borderColor: '#3b93ec !important'
+                            borderColor: '#3b93ec !important',
+                            border: '1px dashed #3b93ec'
                           },
                         }}>
                         <YouTubeIcon sx={{ color: '#1976d2', marginRight: '8px' }} />
@@ -323,8 +369,41 @@ function Home() {
                           </Typography>
                         </Box>
                       </Box>
+
                       <Box
-                        ref={repositoryRef}
+                        ref={boilerplateRef}
+                        onClick={handleClassSampleClick}
+                        sx={{
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          padding: '16px',
+                          borderRadius: '8px',
+                          backgroundColor: 'theme.palette.background.paper',
+                          border: '1px solid #3b93ec',
+                          marginBottom: '10px',
+                          boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
+                          maxWidth: '400px', // ajuste conforme necessário
+                          transition: 'background-color 0.3s ease',
+                          '&:hover': {
+                            backgroundColor: '#ebf5ff !important',
+                            borderColor: '#3b93ec !important',
+                            border: '1px dashed #3b93ec'
+                          },
+                        }}>
+                        <YouTubeIcon sx={{ color: '#1976d2', marginRight: '8px' }} />
+                        <Box>
+                          <Typography variant="subtitle1" align='left' sx={{ fontWeight: 'bold' }}>
+                            Templates e geração de boilerplate
+                          </Typography>
+                          <Typography variant="subtitle2">
+                            Gere toda a estrutura e foque no mais importante
+                          </Typography>
+                        </Box>
+                      </Box>
+
+                      <Box
+                        ref={infraStructureImplementationRef}
                         onClick={handleClassSampleClick}
                         sx={{
                           cursor: 'pointer',
@@ -341,47 +420,17 @@ function Home() {
                           transition: 'background-color 0.3s ease',
                           '&:hover': {
                             backgroundColor: '#ebf5ff !important',
-                            borderColor: '#3b93ec !important'
+                            borderColor: '#3b93ec !important',
+                            border: '1px dashed #3b93ec'
                           },
                         }}>
                         <YouTubeIcon sx={{ color: '#1976d2', marginRight: '8px' }} />
                         <Box>
                           <Typography variant="subtitle1" align='left' sx={{ fontWeight: 'bold' }}>
-                            Liberdade para escolher a sua infra
+                            Liberdade para acesso a dados
                           </Typography>
                           <Typography variant="subtitle2">
                             Implemente na tecnologia de sua escolha
-                          </Typography>
-                        </Box>
-                      </Box>
-
-                      <Box
-                        ref={dapperCommandRef}
-                        onClick={handleClassSampleClick}
-                        sx={{
-                          cursor: 'pointer',
-                          display: 'flex',
-                          alignItems: 'center',
-                          padding: '16px',
-                          borderRadius: '8px',
-                          backgroundColor: 'theme.palette.background.paper',
-                          border: '1px solid #3b93ec',
-                          marginBottom: '10px',
-                          boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
-                          maxWidth: '400px', // ajuste conforme necessário
-                          transition: 'background-color 0.3s ease',
-                          '&:hover': {
-                            backgroundColor: '#ebf5ff !important',
-                            borderColor: '#3b93ec !important'
-                          },
-                        }}>
-                        <YouTubeIcon sx={{ color: '#1976d2', marginRight: '8px' }} />
-                        <Box>
-                          <Typography variant="subtitle1" align='left' sx={{ fontWeight: 'bold' }}>
-                            Templates e geração de boilerplate 
-                          </Typography>
-                          <Typography variant="subtitle2">
-                            Gera toda a estrutura e foqueno mais importante
                           </Typography>
                         </Box>
                       </Box>
@@ -403,7 +452,8 @@ function Home() {
                           transition: 'background-color 0.3s ease',
                           '&:hover': {
                             backgroundColor: '#ebf5ff !important',
-                            borderColor: '#3b93ec !important'
+                            borderColor: '#3b93ec !important',
+                            border: '1px dashed #3b93ec'
                           },
                         }}>
                         <YouTubeIcon sx={{ color: '#1976d2', marginRight: '8px' }} />
@@ -418,21 +468,133 @@ function Home() {
                       </Box>
                     </Box>
 
-                    <Box sx={{ minWidth: 500, width: '100%', height: '100%' }}>
-                      <CodeMirror
-                        value={selectedCodeSample}
-                        onChange={(newValue) => setSelectedCodeSample(newValue)}
-                        theme={codeEditorTheme}
-                        extensions={[csharp(),
-                        EditorView.theme({
-                          '.cm-foldGutter span': {
-                            display: 'none',
-                          },
-                        }),
-                        ]}
-                        style={{ width: '100%', height: '100%', overflow: 'auto', zIndex: -1, textAlign: 'left' }}
-                        readOnly
-                      />
+                    <Box sx={{ minWidth: 500, width: '100%', height: '100%', display: selectedComponent == entityRef.current ? '' : 'none' }}>
+                      <Carousel
+                        responsive={responsive}
+                        infinite={true}
+                        autoPlay={true}
+                        autoPlaySpeed={3000}
+                        showDots={true}
+                        arrows={false}
+                        keyBoardControl={true}
+                      >
+                        {codeSamples.map((codeSample) => (
+                          <CodeMirror
+                            value={codeSample}
+                            theme={codeEditorTheme}
+                            extensions={[csharp(),
+                            EditorView.theme({
+                              '.cm-foldGutter span': {
+                                display: 'none',
+                              },
+                            }),
+                            ]}
+                            style={{ width: '100%', height: '100%', overflow: 'auto', zIndex: -1, textAlign: 'left' }}
+                            readOnly
+                          />
+                        ))}
+                      </Carousel>
+                    </Box>
+
+                    <Box sx={{ minWidth: 500, width: '100%', height: '100%', display: selectedComponent == infraStructureImplementationRef.current ? '' : 'none' }}>
+                      <Carousel
+                        responsive={responsive}
+                        infinite={true}
+                        autoPlay={true}
+                        autoPlaySpeed={3000}
+                        showDots={true}
+                        arrows={false}
+                        keyBoardControl={true}
+                      >
+                        <Box>
+                          <Typography align='center' variant='h4'  sx={{color:'#0072ff'}}>Começe com nossa implementação em Dapper</Typography>
+
+                          <CodeMirror
+                            value={codeDapperSample}
+                            theme={codeEditorTheme}
+                            extensions={[csharp(),
+                            EditorView.theme({
+                              '.cm-foldGutter span': {
+                                display: 'none',
+                              },
+                            }),
+                            ]}
+                            style={{ width: '100%', height: '100%', overflow: 'auto', zIndex: -1, textAlign: 'left' }}
+                            readOnly
+                          />
+                        </Box>
+
+                        <Box>
+                          <Typography align='center' variant='h4' sx={{color:'#0072ff'}}>Ou implemente com a tecnologia a sua escolha</Typography>
+
+                        </Box>
+                      </Carousel>
+                    </Box>
+
+                    <Box sx={{ minWidth: 500, width: '100%', height: '100%', display: selectedComponent == usecaseRef.current ? '' : 'none' }}>
+                      <Carousel
+                        responsive={responsive}
+                        infinite={true}
+                        autoPlay={true}
+                        autoPlaySpeed={3000}
+                        showDots={true}
+                        arrows={false}
+                        keyBoardControl={true}
+                      >
+                        <Box>33333333</Box>
+                        <Box>4444444</Box>
+                      </Carousel>
+                    </Box>
+
+                    <Box sx={{ minWidth: 500, width: '100%', height: '100%', display: selectedComponent == boilerplateRef.current ? '' : 'none' }}>
+                      <Carousel
+                        responsive={responsive}
+                        infinite={true}
+                        autoPlay={true}
+                        autoPlaySpeed={3000}
+                        showDots={true}
+                        arrows={false}
+                        keyBoardControl={true}
+                      >
+                        <Box
+                          component="img"
+                          alt="Project template."
+                          src={projectTemplatesImg}
+                          sx={{
+                            display: 'block',
+                            margin: '15px auto',
+                            maxWidth: '100%',
+                            height: '500px',
+                            width: '911px'
+                          }}
+                        />
+
+                        <Box
+                          component="img"
+                          alt="Created project."
+                          src={templateSolutionCreatedImg}
+                          sx={{
+                            display: 'block',
+                            margin: '15px auto',
+                            maxWidth: '100%',
+                            height: '500px',
+                            width: '911px'
+                          }}
+                        />
+
+                        <Box
+                          component="img"
+                          alt="Swagger for generated api."
+                          src={projectTemplatesSwagger}
+                          sx={{
+                            display: 'block',
+                            margin: '15px auto',
+                            maxWidth: '100%',
+                            height: '500px',
+                            width: '911px'
+                          }}
+                        />
+                      </Carousel>
                     </Box>
                   </Box>
                 </Box>
@@ -440,7 +602,7 @@ function Home() {
             </Box>
 
             <Box sx={{
-              background: 'whitesmoke',         
+              background: 'whitesmoke',
               width: '100%',
               display: 'flex',
               justifyContent: 'center',
@@ -449,7 +611,7 @@ function Home() {
             }}>
               <Grid item xs={9}>
                 <Box sx={{ marginBottom: '50px', marginTop: '60px' }}>
-                <Typography variant="h4">Framework Open source</Typography>
+                  <Typography variant="h4">Framework Open source</Typography>
                   <Typography paragraph align='left'>
                     Conte com uma extensa biblioteca de classes com funcionalidades úteis para sua dia-dia de desenvolvimento
                   </Typography>
